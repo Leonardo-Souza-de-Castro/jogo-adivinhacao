@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Adivinhação</title>
+</head>
+<body>
+    <main class="container">
+        <section id="tutorial" class="container_inicio">
+            <div class="box_banner">
+                <img src="img/comecar.svg" alt="Imagem do começo do jogo">
+            </div>
+            
+            <div class="box_form">
+                <h1 class="titulo">Jogo da Adivinhação</h1>
+                <div class="form">
+                    <span class="mensagem">Bem vindo!</span>
+                    <p class="p_tutorial">Este é o jogo da adivinhação, caso queira começar a jogar só clicar no botão abaixo!</p>
+                    <button onclick="comecar()">Iniciar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="jogo" class="container_inicio">
+            <div class="box_banner">
+                <img src="img/comecar.svg" alt="Imagem do começo do jogo">
+            </div>
+            <div class="box_jogo">
+                <div style="background-color: white; height: 150px; width: 150px; display: none;" id="cor"></div>
+                <span id="resposta" class="mensagem_2"></span>
+                <div class="box_form">
+                    <div class="box_numero">
+                        <input type="text" id="texto" placeholder="Digite um número aqui: ">
+                        <button onclick="comparar()">Enviar</button>
+                        <button onclick="recomecar()">Recomeçar</button>
+                    </div>
+                    <span id="numero">Aqui estão os números que você digitou: </span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        var numero = 0
+    
+        console.log(numero)
+
+        function recomecar() {
+            document.getElementById("jogo").style.setProperty("display", "none");
+            document.getElementById("tutorial").style.setProperty("display", "flex");
+            document.getElementById("cor").style.setProperty("display", "none");
+            document.getElementById("resposta").style.setProperty("display", "none");
+            document.getElementById("numero").textContent = "Aqui estão os números que você digitou: "
+        }
+
+        function comecar() {
+            document.getElementById("jogo").style.setProperty("display", "flex");
+            document.getElementById("tutorial").style.setProperty("display", "none");
+
+            numero = Math.floor(Math.random() * 100)
+        }
+
+
+        function comparar(){
+            var input = document.querySelector("#texto");
+            var texto = parseInt(input.value);
+
+            if (texto < numero) {
+                document.getElementById("cor").style.setProperty("background-color", "red");
+                document.getElementById("cor").style.setProperty("display", "block");
+                document.getElementById("resposta").style.setProperty("display", "block");
+
+                numero_digitado = document.getElementById("numero").append(texto + ", ")
+                input.value = "";
+
+                document.querySelector("#resposta").textContent = "O valor que você digitou é menor que o gerado!"
+
+            }
+
+            if (texto > numero) {
+                document.getElementById("cor").style.setProperty("background-color", "red");
+                document.getElementById("cor").style.setProperty("display", "block");
+                document.getElementById("resposta").style.setProperty("display", "block");
+
+                numero_digitado = document.getElementById("numero").append(texto + ", ")
+                input.value = "";
+
+                document.querySelector("#resposta").textContent = "O valor que você digitou é maior que o gerado!"
+            }
+
+            if (texto == numero) {
+                document.getElementById("cor").style.setProperty("background-color", "green");
+                document.getElementById("cor").style.setProperty("display", "block");
+                document.getElementById("resposta").style.setProperty("display", "block");
+
+                numero_digitado = document.getElementById("numero").append(texto)
+                input.value = "";
+
+                document.querySelector("#resposta").textContent = "Parábens você acertou!!"
+            }
+        }
+    </script>
+</body>
+</html>
